@@ -3,3 +3,5 @@ sqlalchemy-utils
 aiohttp[speedups]
 cchardet
 aiopg
+pytest
+pytest-aiohttp

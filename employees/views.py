@@ -9,8 +9,6 @@ async def get_employees(request):
             return web.Response(
                 text='id\'s type is not int', status=400)
         async with request.app['db'].acquire() as conn:
-            # cursor = await conn.execute(
-            #     'SELECT * FROM employee WHERE id = ' + request.query['id'])
             cursor = await conn.execute(
                 db.employee.select().where(db.employee.c.id == id))
             record = await cursor.fetchall()
@@ -62,8 +60,6 @@ async def put_employee(request):
             text='id is empty or it\'s type is not int', status=400)
 
     async with request.app['db'].acquire() as conn:
-        # cursor = await conn.execute(
-        #     'SELECT * FROM employee WHERE id = ' + id)
         cursor = await conn.execute(
             db.employee.select().where(db.employee.c.id == id))
         record = await cursor.fetchall()
@@ -99,8 +95,6 @@ async def delete_employees(request):
             text='id is empty or it\'s type is not int', status=400)
 
     async with request.app['db'].acquire() as conn:
-        # cursor = await conn.execute(
-        #     'SELECT * FROM employee WHERE id = ' + id)
         cursor = await conn.execute(
             db.employee.select().where(db.employee.c.id == id))
         record = await cursor.fetchall()
@@ -108,8 +102,6 @@ async def delete_employees(request):
             return web.Response(text='employee is not found', status=404)
 
     async with request.app['db'].acquire() as conn:
-        # await conn.execute(
-        #     'DELETE FROM employee WHERE id = ' + id)
         cursor = await conn.execute(
             db.employee.delete().where(db.employee.c.id == id))
         return web.Response(status=204)
